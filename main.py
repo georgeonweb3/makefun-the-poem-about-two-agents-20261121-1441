@@ -18,6 +18,10 @@ OUTPUT_PATH = "/output/entry.txt"
 
 
 def main() -> None:
+    # The harness requires 1-280 Unicode code points, not whitespace-only.
+    points = len(POEM)
+    if not 1 <= points <= 280 or not POEM.strip():
+        raise ValueError(f"poem is {points} code points, must be 1-280 and non-blank")
     os.makedirs(os.path.dirname(OUTPUT_PATH), exist_ok=True)
     with open(OUTPUT_PATH, "w", encoding="utf-8", newline="\n") as f:
         f.write(POEM + "\n")
